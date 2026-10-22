@@ -2,231 +2,942 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Creative Website</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Explore IoT sensors, how they work, and their applications in smart homes, industries, agriculture, and healthcare.">
+<title>SensorSphere | Explore IoT Sensors</title>
 
-    <style>
-        /* Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            color: white;
-            background: linear-gradient(
-                -45deg, #0f172a, #312e81, #6d28d9, #0f766e
-            );
-            background-size: 400% 400%;
-            animation: gradient 12s ease infinite;
-        }
+:root {
+    --bg: #07111f;
+    --panel: #0d1b2b;
+    --card: #102236;
+    --cyan: #42e8d5;
+    --blue: #60a5fa;
+    --text: #f1f5f9;
+    --muted: #9aadc1;
+    --border: rgba(148, 184, 210, 0.14);
+}
 
-        /* Animated background */
-        @keyframes gradient {
-            0%   { background-position: 0% 50%; }
-            50%  { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        /* Floating background circles */
-        .circle {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(2px);
-            opacity: 0.4;
-            animation: float 7s ease-in-out infinite;
-        }
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 85px;
+}
 
-        .circle-one {
-            width: 220px;
-            height: 220px;
-            background: #a78bfa;
-            top: 8%;
-            left: 10%;
-        }
+body {
+    font-family: 'Inter', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+}
 
-        .circle-two {
-            width: 300px;
-            height: 300px;
-            background: #22d3ee;
-            bottom: 5%;
-            right: 8%;
-            animation-delay: -3s;
-        }
+a {
+    color: inherit;
+    text-decoration: none;
+}
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-35px) rotate(10deg); }
-        }
+button, input {
+    font: inherit;
+}
 
-        /* Main glass card */
-        .container {
-            position: relative;
-            z-index: 1;
-            width: min(90%, 650px);
-            padding: 60px 35px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            border-radius: 25px;
-            background: rgba(255, 255, 255, 0.10);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
-            animation: appear 1s ease-out;
-            transition: transform 0.4s, box-shadow 0.4s;
-        }
+button {
+    cursor: pointer;
+}
 
-        .container:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.35);
-        }
+/* NAVIGATION */
 
-        @keyframes appear {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 17px 7%;
+    background: rgba(7, 17, 31, 0.88);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--border);
+}
 
-        .tag {
-            display: inline-block;
-            padding: 8px 15px;
-            margin-bottom: 25px;
-            border: 1px solid rgba(255,255,255,0.3);
-            border-radius: 50px;
-            background: rgba(255,255,255,0.1);
-            font-size: 13px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 21px;
+    font-weight: 800;
+    letter-spacing: -0.8px;
+}
 
-        h1 {
-            font-size: clamp(35px, 7vw, 58px);
-            font-weight: 800;
-            line-height: 1.15;
-            margin-bottom: 20px;
-        }
+.logo-icon {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--cyan), #38a4f8);
+    color: #06121f;
+    font-size: 22px;
+}
 
-        h1 span {
-            background: linear-gradient(90deg, #67e8f9, #c4b5fd, #f0abfc);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-        }
+.logo span {
+    color: var(--cyan);
+}
 
-        p {
-            color: #e2e8f0;
-            font-size: 17px;
-            line-height: 1.8;
-            max-width: 470px;
-            margin: 0 auto 30px;
-        }
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    font-size: 13px;
+    color: var(--muted);
+}
 
-        /* Glowing button */
-        .btn {
-            display: inline-block;
-            padding: 14px 30px;
-            border: none;
-            border-radius: 50px;
-            color: #111827;
-            background: linear-gradient(90deg, #67e8f9, #c4b5fd);
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            box-shadow: 0 0 20px rgba(103, 232, 249, 0.25);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
+.nav-links a:hover {
+    color: var(--cyan);
+}
 
-        .btn:hover {
-            transform: scale(1.07);
-            box-shadow: 0 0 35px rgba(196, 181, 253, 0.65);
-        }
+.nav-cta {
+    padding: 10px 17px;
+    border-radius: 9px;
+    background: var(--cyan);
+    color: #06121f !important;
+    font-weight: 700;
+}
 
-        .btn:active {
-            transform: scale(0.96);
-        }
+/* HERO */
 
-        .footer {
-            margin-top: 35px;
-            font-size: 12px;
-            color: #cbd5e1;
-            letter-spacing: 1px;
-        }
+.hero {
+    position: relative;
+    min-height: 590px;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
+    gap: 40px;
+    padding: 80px 9%;
+    overflow: hidden;
+    background:
+        radial-gradient(ellipse at 80% 45%, rgba(18, 113, 139, 0.19), transparent 45%),
+        radial-gradient(ellipse at 5% 10%, rgba(36, 85, 160, 0.12), transparent 45%);
+}
 
-        /* Mobile responsive */
-        @media (max-width: 480px) {
-            .container {
-                padding: 45px 22px;
-            }
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: linear-gradient(rgba(110, 190, 220, .035) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(110, 190, 220, .035) 1px, transparent 1px);
+    background-size: 45px 45px;
+    mask-image: linear-gradient(to bottom, black, transparent);
+}
 
-            p {
-                font-size: 15px;
-            }
+.hero-content, .hero-visual {
+    position: relative;
+    z-index: 1;
+}
 
-            .circle-one {
-                width: 140px;
-                height: 140px;
-            }
+.eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 7px 13px;
+    border: 1px solid rgba(66, 232, 213, .25);
+    background: rgba(66, 232, 213, .06);
+    border-radius: 30px;
+    color: var(--cyan);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+}
 
-            .circle-two {
-                width: 180px;
-                height: 180px;
-            }
-        }
+.dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--cyan);
+    box-shadow: 0 0 12px var(--cyan);
+}
 
-        /* Respect reduced motion preferences */
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                scroll-behavior: auto !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
-    </style>
+.hero h1 {
+    margin: 25px 0 20px;
+    max-width: 650px;
+    font-size: clamp(39px, 5vw, 65px);
+    line-height: 1.12;
+    letter-spacing: -2.7px;
+}
+
+.gradient-text {
+    color: var(--cyan);
+    background: linear-gradient(90deg, #42e8d5, #78baff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+    max-width: 540px;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.9;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 9px;
+    padding: 13px 20px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    transition: .3s;
+}
+
+.btn-primary {
+    color: #06121f;
+    background: var(--cyan);
+    border-color: var(--cyan);
+}
+
+.btn-primary:hover {
+    box-shadow: 0 0 28px rgba(66, 232, 213, .28);
+    transform: translateY(-3px);
+}
+
+.btn-secondary {
+    background: rgba(255,255,255,.025);
+}
+
+.btn-secondary:hover {
+    border-color: var(--cyan);
+    color: var(--cyan);
+    transform: translateY(-3px);
+}
+
+.hero-note {
+    margin-top: 27px;
+    color: #71869d;
+    font-size: 12px;
+}
+
+/* HERO SENSOR ILLUSTRATION */
+
+.hero-visual {
+    min-height: 370px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.orbit {
+    position: relative;
+    width: 330px;
+    height: 330px;
+    border: 1px solid rgba(66, 232, 213, .18);
+    border-radius: 50%;
+    animation: rotate 40s linear infinite;
+}
+
+.orbit::before, .orbit::after {
+    content: "";
+    position: absolute;
+    inset: 28px;
+    border: 1px dashed rgba(96, 165, 250, .25);
+    border-radius: 50%;
+}
+
+.orbit::after {
+    inset: 65px;
+    border-style: solid;
+    border-color: rgba(66, 232, 213, .15);
+}
+
+@keyframes rotate {
+    to { transform: rotate(360deg); }
+}
+
+.core {
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    left: 50%;
+    width: 125px;
+    height: 125px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transform: translate(-50%, -50%);
+    border: 1px solid rgba(66, 232, 213, .45);
+    border-radius: 30px;
+    background: linear-gradient(145deg, #12334a, #0a1b2d);
+    box-shadow: 0 0 55px rgba(66, 232, 213, .15);
+}
+
+.core-icon {
+    font-size: 42px;
+}
+
+.core strong {
+    font-size: 12px;
+    color: var(--cyan);
+}
+
+.sensor-node {
+    position: absolute;
+    z-index: 3;
+    width: 69px;
+    height: 69px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(96, 165, 250, .35);
+    border-radius: 19px;
+    background: #10283b;
+    font-size: 30px;
+    box-shadow: 0 8px 25px rgba(0,0,0,.2);
+    animation: bob 3s ease-in-out infinite;
+}
+
+.sensor-node:nth-child(2) { top: 3px; left: 130px; }
+.sensor-node:nth-child(3) { right: 1px; top: 130px; animation-delay: -.8s; }
+.sensor-node:nth-child(4) { bottom: 3px; left: 130px; animation-delay: -1.4s; }
+.sensor-node:nth-child(5) { left: 1px; top: 130px; animation-delay: -2s; }
+
+@keyframes bob {
+    0%,100% { margin-top: 0; }
+    50% { margin-top: -8px; }
+}
+
+/* STATS */
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin: 0 9%;
+    padding: 23px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+
+.stat {
+    text-align: center;
+    border-right: 1px solid var(--border);
+}
+
+.stat:last-child {
+    border: none;
+}
+
+.stat strong {
+    display: block;
+    font-size: 24px;
+    color: var(--cyan);
+}
+
+.stat span {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+/* SECTION COMMON */
+
+.section {
+    padding: 85px 9%;
+}
+
+.section-heading {
+    text-align: center;
+    max-width: 670px;
+    margin: 0 auto 38px;
+}
+
+.section-label {
+    color: var(--cyan);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.section-heading h2 {
+    margin: 12px 0;
+    font-size: clamp(28px, 3.5vw, 40px);
+    line-height: 1.25;
+    letter-spacing: -1.1px;
+}
+
+.section-heading p {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+/* SEARCH */
+
+.search-wrap {
+    max-width: 550px;
+    margin: 0 auto 30px;
+}
+
+.search-box {
+    width: 100%;
+    padding: 15px 18px;
+    color: var(--text);
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    outline: none;
+    transition: .25s;
+}
+
+.search-box:focus {
+    border-color: var(--cyan);
+    box-shadow: 0 0 0 3px rgba(66,232,213,.08);
+}
+
+.search-box::placeholder {
+    color: #71869d;
+}
+
+/* SENSOR CARDS */
+
+.sensor-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 19px;
+}
+
+.sensor-card {
+    position: relative;
+    overflow: hidden;
+    padding: 25px;
+    background: linear-gradient(145deg, #102236, #0b1929);
+    border: 1px solid var(--border);
+    border-radius: 17px;
+    transition: transform .3s, border-color .3s, box-shadow .3s;
+}
+
+.sensor-card::before {
+    content: "";
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    top: -75px;
+    right: -60px;
+    border-radius: 50%;
+    background: var(--cyan);
+    opacity: .07;
+    filter: blur(20px);
+    transition: .3s;
+}
+
+.sensor-card:hover {
+    transform: translateY(-7px);
+    border-color: rgba(66,232,213,.48);
+    box-shadow: 0 15px 40px rgba(0,0,0,.18);
+}
+
+.sensor-card:hover::before {
+    opacity: .2;
+}
+
+.sensor-icon {
+    display: grid;
+    place-items: center;
+    width: 58px;
+    height: 58px;
+    margin-bottom: 19px;
+    background: rgba(66,232,213,.08);
+    border: 1px solid rgba(66,232,213,.15);
+    border-radius: 15px;
+    font-size: 29px;
+}
+
+.sensor-card h3 {
+    margin-bottom: 9px;
+    font-size: 17px;
+}
+
+.sensor-card p {
+    min-height: 68px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+.sensor-tag {
+    display: inline-block;
+    margin-top: 18px;
+    padding: 5px 9px;
+    border-radius: 6px;
+    color: var(--cyan);
+    background: rgba(66,232,213,.07);
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.no-results {
+    grid-column: 1 / -1;
+    padding: 35px;
+    color: var(--muted);
+    text-align: center;
+    border: 1px dashed var(--border);
+    border-radius: 12px;
+}
+
+/* APPLICATIONS */
+
+.applications {
+    background: #091625;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+
+.application-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+.application {
+    padding: 26px 17px;
+    text-align: center;
+    background: rgba(255,255,255,.025);
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    transition: .3s;
+}
+
+.application:hover {
+    background: rgba(66,232,213,.055);
+    transform: translateY(-4px);
+}
+
+.application div {
+    margin-bottom: 13px;
+    font-size: 34px;
+}
+
+.application h3 {
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.application p {
+    font-size: 11px;
+    color: var(--muted);
+}
+
+/* HOW IT WORKS */
+
+.steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.step {
+    padding: 25px;
+    border-left: 2px solid var(--cyan);
+    background: linear-gradient(90deg, rgba(66,232,213,.05), transparent);
+}
+
+.step-number {
+    color: var(--cyan);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.step h3 {
+    margin: 9px 0;
+    font-size: 17px;
+}
+
+.step p {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+/* FOOTER */
+
+footer {
+    padding: 28px 9%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    flex-wrap: wrap;
+    background: #060e19;
+    border-top: 1px solid var(--border);
+}
+
+footer p {
+    color: #71869d;
+    font-size: 11px;
+}
+
+footer a {
+    color: var(--cyan);
+    font-size: 12px;
+}
+
+/* REVEAL ANIMATION */
+
+.reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity .7s ease, transform .7s ease;
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+    .navbar { padding: 15px 5%; }
+    .nav-links { gap: 15px; }
+    .hero { padding: 65px 6%; grid-template-columns: 1fr 0.8fr; }
+    .orbit { transform: scale(.85); }
+    .orbit { animation: none; }
+    .section { padding: 70px 6%; }
+    .sensor-grid { grid-template-columns: repeat(2, 1fr); }
+    .application-grid { grid-template-columns: repeat(2, 1fr); }
+    .stats { margin: 0 6%; }
+}
+
+@media (max-width: 650px) {
+    .navbar { flex-wrap: wrap; gap: 15px; }
+    .nav-links { width: 100%; justify-content: space-between; gap: 8px; font-size: 11px; }
+    .nav-cta { padding: 7px 9px; }
+    .hero { grid-template-columns: 1fr; padding: 65px 7% 30px; }
+    .hero h1 { letter-spacing: -1.5px; }
+    .hero-visual { min-height: 310px; }
+    .orbit { transform: scale(.82); margin: -20px 0; }
+    .sensor-grid { grid-template-columns: 1fr; }
+    .sensor-card p { min-height: 0; }
+    .application-grid { grid-template-columns: repeat(2, 1fr); }
+    .steps { grid-template-columns: 1fr; }
+    .stats { margin: 0 5%; }
+    .stat strong { font-size: 20px; }
+    .stat span { font-size: 10px; }
+    .section { padding: 60px 6%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation: none !important;
+        scroll-behavior: auto !important;
+        transition: none !important;
+    }
+    .reveal { opacity: 1; transform: none; }
+}
+</style>
 </head>
 
 <body>
 
-    <div class="circle circle-one"></div>
-    <div class="circle circle-two"></div>
+<!-- NAVIGATION -->
+<header class="navbar">
+    <a href="#home" class="logo">
+        <div class="logo-icon">⌘</div>
+        Sensor<span>Sphere</span>
+    </a>
 
-    <main class="container">
-        <div class="tag">✨ Welcome to my world</div>
+    <nav class="nav-links" aria-label="Main navigation">
+        <a href="#home">Home</a>
+        <a href="#sensors">Sensors</a>
+        <a href="#applications">Applications</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#sensors" class="nav-cta">Explore Sensors ↗</a>
+    </nav>
+</header>
 
-        <h1>Build Something <span>Amazing.</span></h1>
+<!-- HERO -->
+<main>
+<section class="hero" id="home">
+    <div class="hero-content">
+        <div class="eyebrow">
+            <span class="dot"></span>
+            INTERNET OF THINGS · SENSOR GUIDE
+        </div>
+
+        <h1>
+            Explore the World of
+            <span class="gradient-text">IoT Sensors.</span>
+        </h1>
 
         <p>
-            Welcome to my creative space. Explore modern design,
-            beautiful animations, and a little bit of magic with CSS.
+            Discover the technology that connects the physical and digital
+            worlds. Learn how sensors collect real-world data and power
+            smarter homes, industries, agriculture, and cities.
         </p>
 
-        <button class="btn" onclick="showMessage()">
-            Get Started ↗
-        </button>
-
-        <div class="footer">
-            DESIGNED WITH HTML & CSS ❤️
+        <div class="hero-buttons">
+            <a href="#sensors" class="btn btn-primary">Explore Sensors <span>↗</span></a>
+            <a href="#how-it-works" class="btn btn-secondary">How It Works <span>→</span></a>
         </div>
-    </main>
 
-    <script>
-        function showMessage() {
-            alert("Welcome! Let's create something amazing.");
+        <div class="hero-note">
+            ✦ Learn the basics &nbsp; ✦ Discover real-world applications
+        </div>
+    </div>
+
+    <div class="hero-visual" aria-label="Illustration of an IoT hub connected to sensors">
+        <div class="orbit">
+            <div class="core">
+                <div class="core-icon">⌘</div>
+                <strong>IoT SYSTEM</strong>
+            </div>
+            <div class="sensor-node" title="Temperature">🌡️</div>
+            <div class="sensor-node" title="Motion">📡</div>
+            <div class="sensor-node" title="Humidity">💧</div>
+            <div class="sensor-node" title="Air quality">🍃</div>
+        </div>
+    </div>
+</section>
+
+<!-- QUICK FACTS -->
+<section class="stats" aria-label="Website highlights">
+    <div class="stat">
+        <strong>09+</strong>
+        <span>Sensor Categories</span>
+    </div>
+    <div class="stat">
+        <strong>04</strong>
+        <span>Application Areas</span>
+    </div>
+    <div class="stat">
+        <strong>01</strong>
+        <span>Connected World</span>
+    </div>
+</section>
+
+<!-- SENSORS -->
+<section class="section" id="sensors">
+    <div class="section-heading reveal">
+        <span class="section-label">Explore the technology</span>
+        <h2>Discover Different Types of <span class="gradient-text">IoT Sensors</span></h2>
+        <p>
+            Every sensor measures something different. Explore the sensor
+            types, understand what they detect, and see where they are used.
+        </p>
+    </div>
+
+    <div class="search-wrap reveal">
+        <input
+            type="search"
+            id="sensorSearch"
+            class="search-box"
+            placeholder="⌕  Search sensors, e.g. temperature, motion..."
+            aria-label="Search IoT sensors"
+        >
+    </div>
+
+    <div class="sensor-grid" id="sensorGrid">
+
+        <article class="sensor-card reveal" data-search="temperature heat thermometer dht22 lm35">
+            <div class="sensor-icon">🌡️</div>
+            <h3>Temperature Sensor</h3>
+            <p>Measures how hot or cold the surroundings are. Used in smart thermostats, cold storage, and industrial monitoring.</p>
+            <span class="sensor-tag">Example: LM35, DS18B20</span>
+        </article>
+
+        <article class="sensor-card reveal" data-search="humidity moisture air dht11 dht22">
+            <div class="sensor-icon">💧</div>
+            <h3>Humidity Sensor</h3>
+            <p>Measures moisture in the air. Helps monitor greenhouses, weather conditions, and indoor environments.</p>
+            <span class="sensor-tag">Example: DHT11, DHT22</span>
+        </article>
+
+        <article class="sensor-card reveal" data-search="motion pir movement security">
+            <div class="sensor-icon">📡</div>
+            <h3>Motion Sensor</h3>
+            <p>Detects movement within an area. Commonly used in security alarms, automatic lighting, and smart buildings.</p>
+            <span class="sensor-tag">Example: PIR sensor</span>
+        </article>
+
+        <article class="sensor-card reveal" data-search="light ldr brightness illumination">
+            <div class="sensor-icon">☀️</div>
+            <h3>Light Sensor</h3>
+            <p>Measures light intensity and enables automatic brightness adjustment and energy-efficient street lighting.</p>
+            <span class="sensor-tag">Example: LDR, BH1750</span>
+        </article>
+
+        <article class="sensor-card reveal" data-search="gas air quality smoke pollution mq135 mq2">
+            <div class="sensor-icon">🍃</div>
+            <h3>Gas & Air Quality Sensor</h3>
+            <p>Detects certain gases or changes in air quality. Useful for air monitoring, smoke alerts, and safety systems.</p>
+            <span class="sensor-tag">Example: MQ-2, MQ-135</span>
+        </article>
+
+        <article class="sensor-card reveal" data-search="ultrasonic distance proximity obstacle hc-sr04">
+            <div class="sensor-icon">〰️</div>
+            <h3>Distance Sensor</h3>
+            <p>Measures distance to nearby objects. Used in obstacle detection, parking systems, and liquid-level projects.</p>
+            <span class="sensor-tag">Example: HC-SR04</span>
+        </article>
+
+        <article class="sensor-card reveal" data-search="soil moisture agriculture farming plant">
+            <div class="sensor-icon">🌱</div>
+            <h3>Soil Moisture Sensor</h3>
+            <p>Measures the moisture level in soil to help automate irrigation and monitor plant growing conditions.</p>
+            <span class="sensor-tag">Application: Smart farming</span>
+        </article>
+
+        <article class="sensor-card reveal" data-search="pressure barometric altitude bmp280">
+            <div class="sensor-icon">⚙️</div>
+            <h3>Pressure Sensor</h3>
+            <p>Measures gas or liquid pressure. Some barometric sensors also help estimate altitude and track weather changes.</p>
+            <span class="sensor-tag">Example: BMP280</span>
+        </article>
+
+        <article class="sensor-card reveal" data-search="accelerometer gyroscope vibration tilt movement">
+            <div class="sensor-icon">🧭</div>
+            <h3>Motion & Orientation Sensor</h3>
+            <p>Measures acceleration, rotation, or orientation. Used in wearables, robotics, and machine vibration monitoring.</p>
+            <span class="sensor-tag">Example: MPU6050</span>
+        </article>
+
+        <p class="no-results" id="noResults" hidden>
+            No matching sensors found. Try another search term.
+        </p>
+    </div>
+</section>
+
+<!-- APPLICATIONS -->
+<section class="section applications" id="applications">
+    <div class="section-heading reveal">
+        <span class="section-label">Where sensors make a difference</span>
+        <h2>IoT in the <span class="gradient-text">Real World</span></h2>
+        <p>Sensor data helps people make better decisions, automate tasks, and monitor environments.</p>
+    </div>
+
+    <div class="application-grid">
+        <article class="application reveal">
+            <div>🏠</div>
+            <h3>Smart Homes</h3>
+            <p>Automated lights, temperature control, and security alerts.</p>
+        </article>
+
+        <article class="application reveal">
+            <div>🌾</div>
+            <h3>Agriculture</h3>
+            <p>Soil monitoring, smart irrigation, and greenhouse control.</p>
+        </article>
+
+        <article class="application reveal">
+            <div>🏭</div>
+            <h3>Industry</h3>
+            <p>Equipment monitoring, predictive maintenance, and process control.</p>
+        </article>
+
+        <article class="application reveal">
+            <div>❤️</div>
+            <h3>Healthcare</h3>
+            <p>Wearable measurements and remote patient monitoring.</p>
+        </article>
+    </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section" id="how-it-works">
+    <div class="section-heading reveal">
+        <span class="section-label">From measurement to action</span>
+        <h2>How Does an <span class="gradient-text">IoT Sensor Work?</span></h2>
+        <p>A typical IoT system collects data, transfers it for processing, and uses the result to inform an action.</p>
+    </div>
+
+    <div class="steps">
+        <article class="step reveal">
+            <span class="step-number">STEP 01</span>
+            <h3>01. Sense the Environment</h3>
+            <p>A sensor measures a physical condition such as temperature, light, movement, or moisture.</p>
+        </article>
+
+        <article class="step reveal">
+            <span class="step-number">STEP 02</span>
+            <h3>02. Process & Transmit</h3>
+            <p>A microcontroller reads the sensor and may send the data over Wi-Fi, Bluetooth, or another network.</p>
+        </article>
+
+        <article class="step reveal">
+            <span class="step-number">STEP 03</span>
+            <h3>03. Analyze & Respond</h3>
+            <p>An application or controller analyzes the data and may trigger an alert, display a reading, or activate a device.</p>
+        </article>
+    </div>
+</section>
+</main>
+
+<!-- FOOTER -->
+<footer>
+    <a href="#home" class="logo">
+        <div class="logo-icon">⌘</div>
+        Sensor<span>Sphere</span>
+    </a>
+    <p>Explore sensors. Connect ideas. Build a smarter world.</p>
+    <p>© <span id="year"></span> SensorSphere · Educational project</p>
+</footer>
+
+<script>
+// Sensor search
+const searchInput = document.getElementById('sensorSearch');
+const sensorCards = document.querySelectorAll('.sensor-card');
+const noResults = document.getElementById('noResults');
+
+searchInput.addEventListener('input', function () {
+    const query = this.value.toLowerCase().trim();
+    let visibleCount = 0;
+
+    sensorCards.forEach(card => {
+        const content = (
+            card.innerText + ' ' + card.dataset.search
+        ).toLowerCase();
+
+        const matches = content.includes(query);
+        card.hidden = !matches;
+
+        if (matches) visibleCount++;
+    });
+
+    noResults.hidden = visibleCount !== 0;
+});
+
+// Reveal cards and sections when scrolling
+const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            revealObserver.unobserve(entry.target);
         }
-    </script>
+    });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.reveal').forEach(element => {
+    revealObserver.observe(element);
+});
+
+// Current year
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
 
 </body>
 </html>
